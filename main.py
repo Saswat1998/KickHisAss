@@ -31,6 +31,11 @@ def myEnemy(x,y):
     
 def Boom(x,y):
     gameDisplay.blit(boom, (x,y))
+    
+def hitScore(count):
+    font = pygame.font.SysFont(None, 25)
+    text = font.render("Hit Count: " + str(count), True, black)
+    gameDisplay.blit(text, (0,0))
 
 def gameLoop():
     x = display_width * 0.45
@@ -48,6 +53,7 @@ def gameLoop():
     y_fireball_change = 0
     flag = False
     hit = False
+    hitCount = 0
     
     crashed = False
     while not crashed:
@@ -76,12 +82,14 @@ def gameLoop():
                     
                     
         
-        x += x_change 
+        #x += x_change 
         #y_fireball -= y_fireball_change
         #time.sleep(0.5)
+        x += x_change
         gameDisplay.fill(green)
         myEnemy(x_enemy, y_enemy)
         myAvatar(x,y)
+        hitScore(hitCount)
         if y_fireball < 0:
             x_fireball = x + 20
             y_fireball = y + 15
@@ -101,12 +109,14 @@ def gameLoop():
             hit = True
             x_enemy = random.randrange(0, display_width)
             y_enemy = random.randrange(0, display_height*0.4)
+            hitCount += 1
             #time.sleep(0.5)
             
         
         
             
         pygame.display.update()
+        
         #time.sleep(0.5)
         if hit == True:
             #Boom(x_enemy, y_enemy)
